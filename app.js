@@ -13,11 +13,15 @@ app.use('/posts', postsRoutes);
 
 db.authenticate()
   .then(() => console.log('Database connected'))
-  .catch(err => console.error('Unable to connect to the database:', err));
+  .catch(err => console.error('Error connecting to the database:', err));
 
 db.sync()
   .then(() => console.log('Database synced'))
   .catch((err) => console.error('Error syncing database:', err));
+
+app.get('/', (req, res) => {
+    res.send('API is running...');
+});
 
 const PORT = 5000;
 

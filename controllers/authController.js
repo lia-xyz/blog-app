@@ -4,11 +4,7 @@ import jwt from 'jsonwebtoken';
 import { User } from '../models/index.js';
 
 export const signin = async (req, res, next) => {
-    const { username, password, email } = req.body;
-
-    if(!username || !password || !email) {
-        return res.status(400).send({ error: 'Please fill in all fields to register.' });
-    }
+    const { username, password, email } = req.user;
 
     try {
         const salt = await bcrypt.genSalt(10);
@@ -26,16 +22,12 @@ export const signin = async (req, res, next) => {
             data: { id: newUser.id, username: newUser.username },
         });
     } catch (err) {
-        res.status(500).send({ error: 'Server error during registration.' });
+        res.status(500).send({ error: 'Server error during processing your request.' });
     }
 }
 
 export const login = async (req, res, next) => {
-    const { username, password } = req.body;
-
-    if(!username || !password) {
-        return res.status(400).send({ error: 'Please fill in all fields to log in.' });
-    }
+    const { username, password } = req.user;
 
     try {
         const user = await User.findOne({
@@ -55,12 +47,12 @@ export const login = async (req, res, next) => {
         const token = jwt.sign({ id: user.id, username: user.username }, process.env.JWT_SECRET, { expiresIn: '1h' });
 
         res.status(200).send({
-            status: 'Successful',
-            message: 'Login',
+            status: 'Success',
+            message: 'Logged in',
             data: { id: user.id, username: user.username },
             token
         });
     } catch (err) {
-        res.status(500).send({ error: 'Server error during login.' });
+        res.status(500).send({ error: 'Server error during processing your request.' });
     }
 }
