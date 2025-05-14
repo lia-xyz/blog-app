@@ -1,6 +1,6 @@
 import validator from 'validator';
 
-export const signupValidation = (req, res, next) => {
+export const registerValidation = (req, res, next) => {
   const { username, email, password } = req.body;
   const errors = [];
 
