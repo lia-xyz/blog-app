@@ -4,7 +4,8 @@ import dotenv from 'dotenv';
 dotenv.config({ path: '../config/config.env' })
 
 export const authMiddleware = (req, res, next) => {
-    const token = req.header('Authorization')?.replace('Bearer ', '');
+    const token = req.cookies.token;
+
     if (!token) {
         return res.status(403).json({ error: 'Access denied.' });
     }

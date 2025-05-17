@@ -1,6 +1,5 @@
 # Blog App
 
-## Description
 A backend API for a blog app. This API allows users to create, read, update, and delete blog posts, as well as register and login using JWT authentication.
 
 ## Features ✨
@@ -22,7 +21,8 @@ A backend API for a blog app. This API allows users to create, read, update, and
 
 ### Auth
 - `POST /auth/register` – Register a new user
-- `POST /auth/login` – Login and receive a JWT
+- `POST /auth/login` – Login and receive a JWT token
+- `POST /auth/logout` – Log the user out by clearing the authentication cookie
 
 ### Blog Posts
 - `GET /posts` – Get all public posts

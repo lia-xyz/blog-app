@@ -17,8 +17,7 @@ export const register = async (req, res, next) => {
         })
 
         res.status(201).send({
-            status: 'Success',
-            message: 'New user created',
+            message: 'User created',
             data: { id: newUser.id, username: newUser.username },
         });
     } catch (err) {
@@ -46,8 +45,14 @@ export const login = async (req, res, next) => {
 
         const token = jwt.sign({ id: user.id, username: user.username }, process.env.JWT_SECRET, { expiresIn: '1h' });
 
+        res.cookie('token', token, {
+            httpOnly: true,
+            secure: false,
+            sameSite: 'Strict',
+            maxAge: 60 * 60 * 1000,
+        })
+
         res.status(200).send({
-            status: 'Success',
             message: 'Logged in',
             data: { id: user.id, username: user.username },
             token
@@ -55,4 +60,14 @@ export const login = async (req, res, next) => {
     } catch (err) {
         res.status(500).send({ error: 'Server error during processing your request.' });
     }
+}
+
+export const logout = async (req, res, next) => {
+    res.clearCookie('token', {
+        httpOnly: true,
+        secure: false,
+        sameSite: 'Strict',
+    })
+
+    res.status(200).send({ message: 'Logged out' })
 }

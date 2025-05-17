@@ -1,4 +1,5 @@
 import express from 'express';
+import cookieParser from 'cookie-parser'
 const app = express();
 
 import db from './config/db.js';
@@ -6,6 +7,7 @@ import db from './config/db.js';
 import authRoutes from './routes/authRoutes.js';
 import postsRoutes from './routes/postsRoutes.js';
 
+app.use(cookieParser());
 app.use(express.json());
 
 app.use('/auth', authRoutes);

@@ -8,7 +8,6 @@ export const getPosts = async (req, res) => {
         });
 
         res.status(200).send({
-            status: 'Success',
             message: 'Retrieved all public posts',
             data: posts,
         });
@@ -25,7 +24,6 @@ export const getMyPosts = async (req, res) => {
         });
 
         res.status(200).send({
-            status: 'Success',
             message: 'Retrieved all posts by the authenticated user',
             data: posts,
         });
@@ -41,7 +39,6 @@ export const getMyPostById = async (req, res) => {
         }     
 
         res.status(200).send({
-            status: 'Success',
             message: 'Retrieved a specific post by the authenticated user',
             data: req.post,
         });
@@ -58,7 +55,6 @@ export const getPostById = async (req, res) => {
         }     
 
         res.status(200).send({
-            status: 'Success',
             message: 'Retrieved a specific post',
             data: req.post,
         });
@@ -80,8 +76,7 @@ export const addPost = async (req, res) => {
         });
 
         res.status(201).send({
-            status: 'Success',
-            message: 'New post created',
+            message: 'Post created',
             data: newPost,
         });
     } catch (err) {
@@ -106,7 +101,6 @@ export const updatePost = async (req, res) => {
         await post.save();
 
         res.status(200).send({
-            status: 'Success',
             message: 'Post updated',
             data: post,
         });
@@ -124,7 +118,6 @@ export const deletePost = async (req, res) => {
         await req.post.destroy();
 
         res.status(200).send({
-            status: 'Success',
             message: 'Post deleted',
         });
     } catch(err) {
